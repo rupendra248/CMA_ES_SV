@@ -27,7 +27,12 @@ for ax, method in zip(axes, ("SVR", "kNN")):
                 label=LABEL[prot], solid_capstyle="round")
         q = ANCHOR[prot]
         xi = float(np.percentile(e, q * 100))
-        ax.annotate(prot, xy=(xi, q), xytext=(3.0, -7.0),
+        # A is the leftmost curve: label it upper-left so it does not sit
+        # against curve C. In the kNN panel curve A rises from its 54 %
+        # intercept at x = 0, so upper-left would fall on the axis; keep
+        # lower-right there.
+        off = (-8.0, 1.0) if (prot == "A" and method == "SVR") else (3.0, -7.0)
+        ax.annotate(prot, xy=(xi, q), xytext=off,
                     textcoords="offset points", color=COL[prot],
                     fontsize=7.4, fontweight="bold")
     ax.set_xlim(0, 60)
