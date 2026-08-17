@@ -13,13 +13,14 @@ INK, MUTED, RULE = "#0b0b0b", "#52514e", "#c9c8c3"
 
 plt.rcParams.update({"font.family": "serif", "font.size": 6.6})
 fig, ax = plt.subplots(figsize=(3.5, 2.0))
-ax.set_xlim(0, 100); ax.set_ylim(0, 74); ax.axis("off")
+ax.set_xlim(-1.5, 100.5); ax.set_ylim(0, 74); ax.axis("off")   # margin so box borders at x=0 are not clipped
 
 
 def box(x, y, w, h, text, edge, fill="#ffffff", bold=False, fs=6.4):
     ax.add_patch(FancyBboxPatch((x, y), w, h,
                  boxstyle="round,pad=0.9,rounding_size=2.0",
-                 linewidth=0.9, edgecolor=edge, facecolor=fill, zorder=2))
+                 linewidth=0.9, edgecolor=edge, facecolor=fill, zorder=2,
+                 clip_on=False))
     ax.text(x + w / 2, y + h / 2, text, ha="center", va="center", zorder=3,
             fontsize=fs, color=INK, fontweight="bold" if bold else "normal",
             linespacing=1.35)
